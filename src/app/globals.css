@@ -1,26 +1,356 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Custom component styles */
+.btn-google {
+  @apply flex items-center justify-center gap-2 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-50 transition-colors;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.auth-divider {
+  @apply relative flex items-center justify-center my-6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.auth-divider::before {
+  content: "";
+  @apply absolute inset-0 flex items-center;
+}
+
+.auth-divider::before {
+  @apply border-t border-gray-300 w-full;
+}
+
+.auth-divider span {
+  @apply bg-white px-4 text-sm text-gray-500;
+}
+
+/* Loading spinner */
+.spinner {
+  @apply animate-spin rounded-full h-4 w-4 border-b-2 border-current;
+}
+
+/* Form validation styles */
+.form-error {
+  @apply text-red-600 text-sm mt-1;
+}
+
+.form-success {
+  @apply text-green-600 text-sm mt-1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out;
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom component styles */
+.btn-google {
+  @apply flex items-center justify-center gap-2 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-gray-700 hover:bg-gray-50 transition-colors;
+}
+
+.auth-divider {
+  @apply relative flex items-center justify-center my-6;
+}
+
+.auth-divider::before {
+  content: "";
+  @apply absolute inset-0 flex items-center;
+}
+
+.auth-divider::before {
+  @apply border-t border-gray-300 w-full;
+}
+
+.auth-divider span {
+  @apply bg-white px-4 text-sm text-gray-500;
+}
+
+/* Loading spinner */
+.spinner {
+  @apply animate-spin rounded-full h-4 w-4 border-b-2 border-current;
+}
+
+/* Form validation styles */
+.form-error {
+  @apply text-red-600 text-sm mt-1;
+}
+
+.form-success {
+  @apply text-green-600 text-sm mt-1;
+}
+
+/* Resume preview styles */
+.resume-preview {
+  @apply bg-white border rounded-lg p-6 shadow-sm;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.resume-preview h1 {
+  @apply text-xl font-bold text-gray-900 mb-2;
+}
+
+.resume-preview h2 {
+  @apply text-lg font-semibold text-blue-600 border-b border-gray-200 mb-3 pb-1;
+}
+
+.resume-preview h3 {
+  @apply text-base font-medium text-gray-800 mb-1;
+}
+
+.resume-preview .contact-info {
+  @apply text-gray-600 text-center mb-4;
+}
+
+.resume-preview .section {
+  @apply mb-6;
+}
+
+.resume-preview .job-item {
+  @apply mb-4;
+}
+
+.resume-preview .job-title {
+  @apply font-medium text-gray-900;
+}
+
+.resume-preview .company {
+  @apply text-gray-700;
+}
+
+.resume-preview .date-range {
+  @apply text-gray-500 text-xs;
+}
+
+.resume-preview ul {
+  @apply list-disc list-inside ml-4 mt-2;
+}
+
+.resume-preview li {
+  @apply text-gray-700 mb-1;
+}
+
+/* Step indicator */
+.step-indicator {
+  @apply flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium;
+}
+
+.step-indicator.active {
+  @apply bg-blue-600 text-white;
+}
+
+.step-indicator.inactive {
+  @apply bg-gray-200 text-gray-600;
+}
+
+.step-indicator.completed {
+  @apply bg-green-600 text-white;
+}
+
+/* Progress bar */
+.progress-bar {
+  @apply w-full bg-gray-200 rounded-full h-2;
+}
+
+.progress-bar-fill {
+  @apply bg-blue-600 h-2 rounded-full transition-all duration-300;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%,
+  43% {
+    transform: translate3d(0, -30px, 0);
+  }
+  70% {
+    transform: translate3d(0, -15px, 0);
+  }
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .resume-preview {
+    font-size: 10px;
+  }
+
+  .step-indicator {
+    @apply w-6 h-6 text-xs;
+  }
 }
