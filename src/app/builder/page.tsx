@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback, useEffect, Suspense } from "react";
+import { useState, useCallback, Suspense } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,43 +24,7 @@ import ExperienceForm from "@/components/builder/ExperienceForm";
 import EducationForm from "@/components/builder/EducationForm";
 import SkillsForm from "@/components/builder/SkillsForm";
 import ResumePreview from "@/components/builder/ResumePreview";
-import { getTemplateById, Template } from "@/lib/templates";
-
-interface ResumeData {
-  personalInfo: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    address: string;
-    summary: string;
-    photo?: string;
-  };
-  experience: Array<{
-    id: string;
-    title: string;
-    company: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    current: boolean;
-    description: string;
-  }>;
-  education: Array<{
-    id: string;
-    degree: string;
-    school: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    gpa?: string;
-  }>;
-  skills: Array<{
-    id: string;
-    name: string;
-    level: string;
-  }>;
-}
+import { type ResumeData } from "@/lib/templates";
 
 const steps = [
   {
@@ -98,11 +62,8 @@ const steps = [
 function BuilderContent() {
   const { status } = useSession();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(0);
-  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
-    null
-  );
+  // No templates needed anymore - removed selectedTemplate state
   const [resumeData, setResumeData] = useState<ResumeData>({
     personalInfo: {
       firstName: "",
@@ -128,15 +89,7 @@ function BuilderContent() {
   );
 
   // Load template from URL parameter
-  useEffect(() => {
-    const templateId = searchParams.get("template");
-    if (templateId) {
-      const template = getTemplateById(templateId);
-      if (template) {
-        setSelectedTemplate(template);
-      }
-    }
-  }, [searchParams, setSelectedTemplate]);
+  // No template selection needed anymore
 
   if (status === "loading") {
     return (
@@ -171,7 +124,7 @@ function BuilderContent() {
             data={resumeData.personalInfo}
             onUpdate={(data) => updateResumeData("personalInfo", data)}
             onNext={nextStep}
-            hasPhotoSupport={selectedTemplate?.hasPhoto || false}
+            hasPhotoSupport={true}
           />
         );
       case "experience":
@@ -203,11 +156,7 @@ function BuilderContent() {
         );
       case "preview":
         return (
-          <ResumePreview
-            data={resumeData}
-            onPrev={prevStep}
-            template={selectedTemplate}
-          />
+          <ResumePreview data={resumeData} onPrev={prevStep} template={null} />
         );
       default:
         return null;

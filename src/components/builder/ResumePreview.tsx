@@ -12,48 +12,12 @@ import {
 import { Download, Eye, Save } from "lucide-react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { Template, renderTemplate } from "@/lib/templates";
-
-interface ResumeData {
-  personalInfo: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    address: string;
-    summary: string;
-    photo?: string;
-  };
-  experience: Array<{
-    id: string;
-    title: string;
-    company: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    current: boolean;
-    description: string;
-  }>;
-  education: Array<{
-    id: string;
-    degree: string;
-    school: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    gpa?: string;
-  }>;
-  skills: Array<{
-    id: string;
-    name: string;
-    level: string;
-  }>;
-}
+import { renderTemplate, type ResumeData } from "@/lib/templates";
 
 interface ResumePreviewProps {
   data: ResumeData;
   onPrev: () => void;
-  template?: Template | null;
+  template?: any | null;
 }
 
 export default function ResumePreview({
